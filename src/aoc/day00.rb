@@ -52,7 +52,7 @@ class Day00
       result = compute_solution(part_identifier, @@live_version)
     end
 
-    puts "Solution for part #{part_identifier}: #{result.to_s}  took #{duration * 1000} ms."
+    puts "Solution for part #{part_identifier}: #{result.to_s} took #{duration * 1000} ms."
   end
 
   # @param part_identifier [String]
