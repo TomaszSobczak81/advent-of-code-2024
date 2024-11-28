@@ -7,14 +7,14 @@ class Aoc < Thor
 
   def day00
     require_relative 'aoc/day00'
-    Day00.new(123.to_s, 456.to_s.reverse).solve
+    Day00.new(123.to_s, 123.to_s.reverse).solve
   end
 
   desc "day01", "Day 1 solutions solver"
 
   def day01
     require_relative 'aoc/day01'
-    Day01.new("1", "2").solve
+    Day01.new(1.to_s, 2.to_s).solve
   end
 end
 
