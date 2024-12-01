@@ -84,4 +84,8 @@ class Day00
     file_path = "#{Dir.pwd}/var/input/#{version_identifier}/day#{self.class.name[3..4]}/part_#{part_identifier}.txt"
     File.read(file_path)
   end
+
+  protected def lines_from_input_data(part_identifier, version_identifier)
+    self.raw_input_data(part_identifier, version_identifier).split("\n")
+  end
 end

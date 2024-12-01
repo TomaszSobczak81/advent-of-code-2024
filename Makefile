@@ -2,7 +2,7 @@ docker_compose = docker compose
 docker_container = console
 
 build: # Rebuild docker stack
-	${docker_compose} build --build-arg UID=`id --user` --build-arg GID=`id --group`
+	${docker_compose} build --build-arg DOCKER_USER_ID=`id --user` --build-arg DOCKER_GROUP_ID=`id --group`
 
 up: # Start docker stack in detached mode
 	${docker_compose} up --detach

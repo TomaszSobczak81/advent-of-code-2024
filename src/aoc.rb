@@ -14,7 +14,7 @@ class Aoc < Thor
 
   def day01
     require_relative 'aoc/day01'
-    Day01.new(1.to_s, 2.to_s).solve
+    Day01.new(11.to_s, 31.to_s).solve
   end
 end
 

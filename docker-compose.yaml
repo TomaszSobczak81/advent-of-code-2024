@@ -1,16 +1,16 @@
 services:
   console:
-    build: '.'
+    build:
+      context: "."
+      dockerfile: ".docker/Dockerfile"
+    command: [ "while true; do sleep 1; done" ]
+    entrypoint: [ "/bin/sh", "-c" ]
     logging:
       options:
         max-file: '1'
         max-size: '1m'
-    networks:
-      - 'default'
+    stdin_open: true
+    tty: true
     volumes:
       - '${PWD}:/mnt/app'
       - '${HOME}/.ssh:/home/code/.ssh:ro'
-
-networks:
-  default:
-    driver: 'bridge'
