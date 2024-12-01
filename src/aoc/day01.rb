@@ -6,7 +6,7 @@ class Day01 < Day00
   # @return [String]
   protected def compute_part_one_solution(version_identifier)
     distance = 0
-    lft, rgt = load_locations_list(@@part_one_identifier, version_identifier)
+    lft, rgt = self.load_locations_list(@@part_one_identifier, version_identifier)
 
     lft.sort!
     rgt.sort!
@@ -22,7 +22,7 @@ class Day01 < Day00
   # @return [String]
   protected def compute_part_two_solution(version_identifier)
     similarity_score = 0
-    lft, rgt = load_locations_list(@@part_one_identifier, version_identifier)
+    lft, rgt = self.load_locations_list(@@part_one_identifier, version_identifier)
 
     lft.each do |a|
       similarity_score += a * rgt.select { |b| b == a }.count
