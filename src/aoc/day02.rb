@@ -18,12 +18,12 @@ class Day02 < Day00
       report_loop = 0
       report_size = report.size
 
-      until self.is_report_valid(report_copy) do
+      until report_status = self.is_report_valid(report_copy) do
         report_copy, report_loop = self.remove_level_from_report(report, report_loop)
         break if report_loop >= report_size
       end
 
-      self.is_report_valid(report_copy)
+      report_status
     end.select { |i| i }.count.to_s
   end
 
