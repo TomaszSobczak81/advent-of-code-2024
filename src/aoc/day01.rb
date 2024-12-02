@@ -6,10 +6,7 @@ class Day01 < Day00
   # @return [String]
   protected def compute_part_one_solution(version_identifier)
     distance = 0
-    lft, rgt = self.load_locations_list(@@part_one_identifier, version_identifier)
-
-    lft.sort!
-    rgt.sort!
+    lft, rgt = self.load_locations_list(@@part_one_identifier, version_identifier).each { |x| x.sort! }
 
     lft.each_with_index do |a, i|
       distance += (a - rgt[i]).abs
@@ -37,10 +34,9 @@ class Day01 < Day00
   private def load_locations_list(part_identifier, version_identifier)
     lft, rgt = [], []
 
-    self.lines_from_input_data(part_identifier, version_identifier).each do |line|
-      a, b = line.split
-      lft << a.to_i
-      rgt << b.to_i
+    self.input_data_as_lines(part_identifier, version_identifier).each do |line|
+      a, b = line.split.map { |x| x.to_i }
+      lft << a and rgt << b
     end
 
     [lft, rgt]

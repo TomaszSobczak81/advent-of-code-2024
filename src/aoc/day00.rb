@@ -85,7 +85,7 @@ class Day00
     File.read(file_path)
   end
 
-  protected def lines_from_input_data(part_identifier, version_identifier)
+  protected def input_data_as_lines(part_identifier, version_identifier)
     self.raw_input_data(part_identifier, version_identifier).split("\n")
   end
 end
