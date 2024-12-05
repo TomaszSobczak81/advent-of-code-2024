@@ -3,7 +3,7 @@ require_relative 'day00'
 
 class Day05 < Day00
   # @param version_identifier [String]
-  # @return [String
+  # @return [String]
   protected def compute_part_one_solution(version_identifier)
     rules, queues = self.erratum_data(version_identifier)
 
