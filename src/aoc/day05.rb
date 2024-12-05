@@ -23,7 +23,7 @@ class Day05 < Day00
   end
 
   # @param version_identifier [String]
-  # @return [[Hash<Integer=>Integer>, Array<Integer>]]
+  # @return [[Hash<Integer=>Array<Integer>>, Array<Integer>]]
   private def erratum_data(version_identifier)
     print_rules = {}
     page_queues = []
@@ -40,7 +40,7 @@ class Day05 < Day00
     [print_rules, page_queues.reject { |e| e.empty? }]
   end
 
-  # @param rules [Hash<Integer=>Integer>]
+  # @param rules [Hash<Integer=>Array<Integer>>]
   # @param q [Array<Integer>]
   # @return [Array<Integer>]
   private def sort_print_queue(rules, q)
