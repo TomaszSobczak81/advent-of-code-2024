@@ -85,7 +85,17 @@ class Day00
     File.read(file_path)
   end
 
+  # @param part_identifier [String]
+  # @param version_identifier [String]
+  # @return [Array<String>]
   protected def input_data_as_lines(part_identifier, version_identifier)
     self.raw_input_data(part_identifier, version_identifier).split("\n")
+  end
+
+  # @param part_identifier [String]
+  # @param version_identifier [String]
+  # @return [Array<Array<String>>]
+  protected def input_data_as_grid(part_identifier, version_identifier)
+    self.input_data_as_lines(part_identifier, version_identifier).map { |a| a.split('') }
   end
 end
