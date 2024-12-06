@@ -60,15 +60,15 @@ class Area
         shadow.rotate!
 
         tmp = [shadow.to_s]
+
         while true
           break unless self.is_location_inside_area?(*(shadow_goto = shadow.next_location))
           self.is_location_accessible?(*shadow_goto) ? shadow.move! : shadow.rotate!
           tmp << shadow.to_s
+        end
 
-          if (@visited_positions & tmp).size > 0
-            @possible_loops_positions << goto
-            break
-          end
+        if (@visited_positions & tmp).size > 0
+          @possible_loops_positions << goto
         end
       end
 
@@ -81,19 +81,19 @@ class Area
   # @param x [Integer]
   # @param y [Integer]
   # @return [Boolean]
-  def is_location_accessible?(x, y)
+  private def is_location_accessible?(x, y)
     @area[y][x] != @invalid_location
   end
 
   # @param x [Integer]
   # @param y [Integer]
   # @return [Boolean]
-  def is_location_inside_area?(x, y)
+  private def is_location_inside_area?(x, y)
     x.between?(0, @area[0].size - 1) && y.between?(0, @area.size - 1)
   end
 
   # @return [Guard]
-  def locate_guard_position
+  private def locate_guard_position
     y = @area.find_index { |row| row.include?('^') }
     x = @area[y].find_index('^')
 
@@ -116,34 +116,17 @@ class Guard
     @y = y
   end
 
-  def move!
-    case @direction
-    when '^' then @y -= 1
-    when '>' then @x += 1
-    when 'v' then @y += 1
-    when '<' then @x -= 1
-    else raise "Invalid direction: #{@direction}"
-    end
+  def move!(steps = 1)
+    @x += { '^' => 0, '>' => steps, 'v' => 0, '<' => -steps }[@direction]
+    @y += { '^' => -steps, '>' => 0, 'v' => steps, '<' => 0 }[@direction]
   end
 
   def next_location
-    case @direction
-    when '^' then [@x, @y - 1]
-    when '>' then [@x + 1, @y]
-    when 'v' then [@x, @y + 1]
-    when '<' then [@x - 1, @y]
-    else raise "Invalid direction: #{@direction}"
-    end
+    { '^' => [@x, @y - 1], '>' => [@x + 1, @y], 'v' => [@x, @y + 1], '<' => [@x - 1, @y] }[@direction]
   end
 
   def rotate!
-    case @direction
-    when '^' then @direction = '>'
-    when '>' then @direction = 'v'
-    when 'v' then @direction = '<'
-    when '<' then @direction = '^'
-    else raise "Invalid direction: #{@direction}"
-    end
+    @direction = { '^' => '>', '>' => 'v', 'v' => '<', '<' => '^' }[@direction]
   end
 
   def to_s
