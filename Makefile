@@ -5,7 +5,7 @@ build: # Rebuild docker stack
 	${docker_compose} build --build-arg DOCKER_USER_ID=`id --user` --build-arg DOCKER_GROUP_ID=`id --group`
 
 up: # Start docker stack in detached mode
-	${docker_compose} up --detach
+	${docker_compose} up --detach --remove-orphans
 
 ps: # Print docker stack status
 	${docker_compose} ps
