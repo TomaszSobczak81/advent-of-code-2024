@@ -13,7 +13,17 @@ class Day06 < Day00
   # @return [String]
   protected def compute_part_two_solution(version_identifier)
     area = Area.new(self.input_data_as_grid(@@part_one_identifier, version_identifier))
-    area.detect_possible_loops.count.to_s
+    area.process_guard_movement!
+
+    loops = Set.new
+
+    area.path.each do |x, y|
+      prev = area.update_location(x, y, '#')
+      loops.add([x, y]) if area.check_if_loop_exists?
+      area.update_location(x, y, prev)
+    end
+
+    loops.count.to_s
   end
 end
 
@@ -25,18 +35,7 @@ class Area
     @invalid_location = '#'
     @visited_location = 'X'
 
-    @possible_loops_positions = []
-    @visited_positions = []
-  end
-
-  private def process_guard_movement!
-    guard = self.locate_guard_position
-
-    while true
-      break unless self.is_location_inside_area?(*(goto = guard.next_location))
-      self.is_location_accessible?(*goto) ? guard.move! : guard.rotate!
-      self.mark_location_as_visited(guard.x, guard.y)
-    end
+    @guard = self.locate_guard_position
   end
 
   # @return [Integer]
@@ -45,46 +44,85 @@ class Area
     @area.flatten.count(@visited_location)
   end
 
-  def detect_possible_loops
-    guard = self.locate_guard_position
-    shadow = Guard.new(guard.direction, guard.x, guard.y)
-    _area = @area.dup
+  # @return [Array<Array<Integer>>]
+  def path
+    @area.each_with_index.map do |row, y|
+      row.each_with_index.map do |cell, x|
+        [x, y] if cell == @visited_location
+      end
+    end.flatten(1).compact
+  end
 
-    @possible_loops_positions = Set.new
-    @visited_positions = Set.new
+  def process_guard_movement!
+    guard = self.locate_guard_position
 
     while true
-      break unless self.is_location_inside_area?(*(goto = guard.next_location))
-      @visited_positions.add(guard.to_s)
+      break if self.is_location_outside_area?(*(goto = guard.next_location))
+      self.is_location_accessible?(*goto) ? guard.move! : guard.rotate!
+      self.mark_location_as_visited(guard.x, guard.y)
+    end
+  end
 
-      if self.is_location_accessible?(*goto)
-        shadow.update!(guard.direction, guard.x, guard.y)
-        shadow.rotate!
+  # @param x [Integer]
+  # @param y [Integer]
+  # @param value [String]
+  # @return [String]
+  def update_location(x, y, value)
+    prev = @area[y][x]
+    @area[y][x] = value
+    prev
+  end
 
-        pos = _area[goto[1]][goto[0]]
-        tmp = Set.new
+  # @return [Boolean]
+  def check_if_loop_exists?
+    self.reset_guard_location!
 
-        _area[goto[1]][goto[0]] = @invalid_location
+    guard = self.locate_guard_position
+    path = Set.new
 
-        while true
-          self.fast_forward_guard_to_next_obstacle!(shadow, _area)
-          break if self.is_location_outside_area?(shadow.x, shadow.y)
+    while true
+      self.fast_forward_guard_to_next_obstacle!(guard)
+      break if self.is_location_outside_area?(guard.x, guard.y)
 
-          unless tmp.add?(shadow.to_s)
-            @possible_loops_positions.add(goto.to_s)
-            break
-          end
-
-          shadow.rotate!
-        end
-
-        _area[goto[1]][goto[0]] = pos
+      unless path.add?(guard.to_s)
+        return true
       end
 
-      self.is_location_accessible?(*goto) ? guard.move! : guard.rotate!
+      guard.rotate!
     end
 
-    @possible_loops_positions
+    false
+  end
+
+  # @param guard [Guard]
+  private def fast_forward_guard_to_next_obstacle!(guard)
+    gx, gy = guard.x, guard.y
+
+    if guard.direction == '>'
+      @area[gy][gx + 1..].each_with_index do |cell, i|
+        return guard.fast_forward!(gx + i, gy) if cell == @invalid_location
+      end
+    end
+
+    if guard.direction == '<'
+      @area[gy][0...gx].reverse.each_with_index do |cell, i|
+        return guard.fast_forward!(gx - i, gy) if cell == @invalid_location
+      end
+    end
+
+    if guard.direction == '^'
+      @area[0...gy].reverse.each_with_index do |row, i|
+        return guard.fast_forward!(gx, gy - i) if row[gx] == @invalid_location
+      end
+    end
+
+    if guard.direction == 'v'
+      @area[gy + 1..].each_with_index do |row, i|
+        return guard.fast_forward!(gx, gy + i) if row[gx] == @invalid_location
+      end
+    end
+
+    guard.leave_area!
   end
 
   # @param x [Integer]
@@ -92,13 +130,6 @@ class Area
   # @return [Boolean]
   private def is_location_accessible?(x, y)
     @area[y][x] != @invalid_location
-  end
-
-  # @param x [Integer]
-  # @param y [Integer]
-  # @return [Boolean]
-  private def is_location_inside_area?(x, y)
-    x.between?(0, @area[0].size - 1) && y.between?(0, @area.size - 1)
   end
 
   # @param x [Integer]
@@ -116,41 +147,14 @@ class Area
     Guard.new(@area[y][x], x, y)
   end
 
-  # @param guard [Guard]
-  private def fast_forward_guard_to_next_obstacle!(guard, area = @area)
-    gx, gy = guard.x, guard.y
-
-    if guard.direction == '>'
-      area[gy][gx + 1..].each_with_index do |cell, i|
-        return guard.fast_forward!(gx + i, gy) if cell == @invalid_location
-      end
-    end
-
-    if guard.direction == '<'
-      area[gy][0...gx].reverse.each_with_index do |cell, i|
-        return guard.fast_forward!(gx - i, gy) if cell == @invalid_location
-      end
-    end
-
-    if guard.direction == '^'
-      area[0...gy].reverse.each_with_index do |row, i|
-        return guard.fast_forward!(gx, gy - i) if row[gx] == @invalid_location
-      end
-    end
-
-    if guard.direction == 'v'
-      area[gy + 1..].each_with_index do |row, i|
-        return guard.fast_forward!(gx, gy + i) if row[gx] == @invalid_location
-      end
-    end
-
-    guard.leave_area!
-  end
-
   # @param x [Integer]
   # @param y [Integer]
   private def mark_location_as_visited(x, y)
     @area[y][x] = @visited_location
+  end
+
+  private def reset_guard_location!
+    self.update_location(@guard.x, @guard.y, @guard.direction)
   end
 end
 
@@ -179,16 +183,14 @@ class Guard
     @y += { '^' => -1, '>' => 0, 'v' => 1, '<' => 0 }[@direction]
   end
 
+  # @return [Array<Integer>]
   def next_location
     { '^' => [@x, @y - 1], '>' => [@x + 1, @y], 'v' => [@x, @y + 1], '<' => [@x - 1, @y] }[@direction]
   end
 
+  # @return [String]
   def rotate!
     @direction = { '^' => '>', '>' => 'v', 'v' => '<', '<' => '^' }[@direction]
-  end
-
-  def transpose!
-    # This method is used to skip the first location
   end
 
   # @param direction [String]
@@ -200,6 +202,7 @@ class Guard
     @y = y
   end
 
+  # @return [String]
   def to_s
     "x:#{@x},y:#{@y},direction:#{@direction}"
   end
