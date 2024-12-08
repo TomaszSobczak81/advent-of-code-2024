@@ -16,5 +16,6 @@ To make it simply to use for everyone without needs to install any dependencies 
 * Run `make run_day_03` to solve Day 3 solutions [Mull It Over](https://adventofcode.com/2024/day/3)
 * Run `make run_day_04` to solve Day 4 solutions [Ceres Search](https://adventofcode.com/2024/day/4)
 * Run `make run_day_05` to solve Day 5 solutions [Print Queue](https://adventofcode.com/2024/day/5)
+* Run `make run_day_06` to solve Day 6 solutions [Guard Gallivant](https://adventofcode.com/2024/day/6)
 * Run `make run_day_07` to solve Day 6 solutions [Bridge Repair](https://adventofcode.com/2024/day/7)
 * Run `make run_day_08` to solve Day 8 solutions [Resonant Collinearity](https://adventofcode.com/2024/day/8)

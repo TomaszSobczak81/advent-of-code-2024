@@ -5,7 +5,7 @@ build: # Rebuild docker stack
 	${docker_compose} build --build-arg DOCKER_USER_ID=`id --user` --build-arg DOCKER_GROUP_ID=`id --group`
 
 up: # Start docker stack in detached mode
-	${docker_compose} up --detach
+	${docker_compose} up --detach --remove-orphans
 
 ps: # Print docker stack status
 	${docker_compose} ps
@@ -33,6 +33,9 @@ run_day_04: # Run a solver for Day 4 solutions
 
 run_day_05: # Run a solver for Day 5 solutions
 	${docker_compose} exec ${docker_container} ruby ./src/aoc.rb day05
+
+run_day_06: # Run a solver for Day 6 solutions
+	${docker_compose} exec --env=RUBY_THREAD_VM_STACK_SIZE=5000000 ${docker_container} ruby ./src/aoc.rb day06
 
 run_day_07: # Run a solver for Day 7 solutions
 	${docker_compose} exec ${docker_container} ruby ./src/aoc.rb day07
