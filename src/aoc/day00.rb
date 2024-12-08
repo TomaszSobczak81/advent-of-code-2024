@@ -88,4 +88,8 @@ class Day00
   protected def input_data_as_lines(part_identifier, version_identifier)
     self.raw_input_data(part_identifier, version_identifier).split("\n")
   end
+
+  protected def input_data_as_grid(part_identifier, version_identifier)
+    self.input_data_as_lines(part_identifier, version_identifier).map { |a| a.split('') }
+  end
 end
