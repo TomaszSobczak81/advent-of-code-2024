@@ -3,7 +3,7 @@ require_relative 'day00'
 
 class Day04 < Day00
   # @param version_identifier [String]
-  # @return [String
+  # @return [String]
   protected def compute_part_one_solution(version_identifier)
     self.search_data(version_identifier).map do |data|
       data.scan(/XMAS/).size + data.reverse.scan(/XMAS/).size
