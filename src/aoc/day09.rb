@@ -4,25 +4,20 @@ require_relative 'day00'
 class Day09 < Day00
   protected def compute_part_one_solution(version_identifier)
     disk = []
+    dots = []
 
     self.input_data_as_lines_of_integers(@@part_one_identifier, version_identifier)[0].each_with_index do |x, i|
+      dots.concat((disk.size...disk.size+x).to_a) if i.odd? and x.positive?
       disk.concat((i.even? ? [i / 2] : ['.']) * x)
     end
 
-    p = disk.size - 1
-    (disk.size - 1).downto(1).each do |pos|
-      next if disk[pos] == '.'
-
-      if (x = disk[0..pos].find_index('.'))
-        disk[x] = disk[pos]
-        disk[pos] = '.'
-      else
-        p = pos
-        break
-      end
+    while disk.any?('.') do
+      next if (x = disk.pop) == '.'
+      i = dots.shift
+      disk[i] = x
     end
 
-    disk[0..p].each_with_index.inject(0) do |res, (block, id)|
+    disk[0...disk.find_index('.')].each_with_index.inject(0) do |res, (block, id)|
       res + block.to_i * id
     end.to_s
   end
