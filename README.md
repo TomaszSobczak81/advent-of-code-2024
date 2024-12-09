@@ -19,3 +19,24 @@ To make it simply to use for everyone without needs to install any dependencies 
 * Run `make run_day_06` to solve Day 6 solutions [Guard Gallivant](https://adventofcode.com/2024/day/6)
 * Run `make run_day_07` to solve Day 6 solutions [Bridge Repair](https://adventofcode.com/2024/day/7)
 * Run `make run_day_08` to solve Day 8 solutions [Resonant Collinearity](https://adventofcode.com/2024/day/8)
+* Run `make run_day_09` to solve Day 9 solutions [Disk Fragmenter](https://adventofcode.com/2024/day/9)
+
+## TODO
+
+* [ ] Day 7 part 2 needs to be optimized
+```
+docker compose exec console ruby ./src/aoc.rb day07
+Test passed for part one. Got 3749 as expected.
+Solution for part one: 2941973819040 took 449.1696079967369 ms.
+Test passed for part two. Got 11387 as expected.
+Solution for part two: 249943041417600 took 16830.26892899943 ms.
+```
+
+* [ ] Day 9 needs to be optimized
+```
+docker compose exec console ruby ./src/aoc.rb day09
+Test passed for part one. Got 1928 as expected.
+Solution for part one: 6378826667552 took 68040.98141299983 ms.
+Test passed for part two. Got 2858 as expected.
+Solution for part two: 6413328569890 took 9574.002748999192 ms.
+```
