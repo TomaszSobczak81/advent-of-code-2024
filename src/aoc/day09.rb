@@ -2,6 +2,8 @@
 require_relative 'day00'
 
 class Day09 < Day00
+  # @param version_identifier [String]
+  # @return [String]
   protected def compute_part_one_solution(version_identifier)
     disk = []
     dots = []
@@ -22,6 +24,8 @@ class Day09 < Day00
     end.to_s
   end
 
+  # @param version_identifier [String]
+  # @return [String]
   protected def compute_part_two_solution(version_identifier)
     disk = []
 

@@ -72,6 +72,13 @@ class Aoc < Thor
     require_relative 'aoc/day09'
     Day09.new(1928.to_s, 2858.to_s).solve
   end
+
+  desc "day10", "Day 10 solutions solver"
+
+  def day10
+    require_relative 'aoc/day10'
+    Day10.new(36.to_s, 81.to_s).solve
+  end
 end
 
 Aoc.start(ARGV)

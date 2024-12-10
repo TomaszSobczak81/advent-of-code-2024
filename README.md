@@ -20,6 +20,7 @@ To make it simply to use for everyone without needs to install any dependencies 
 * Run `make run_day_07` to solve Day 6 solutions [Bridge Repair](https://adventofcode.com/2024/day/7)
 * Run `make run_day_08` to solve Day 8 solutions [Resonant Collinearity](https://adventofcode.com/2024/day/8)
 * Run `make run_day_09` to solve Day 9 solutions [Disk Fragmenter](https://adventofcode.com/2024/day/9)
+* Run `make run_day_10` to solve Day 10 solutions [Hoof It](https://adventofcode.com/2024/day/10)
 
 ## TODO
 
