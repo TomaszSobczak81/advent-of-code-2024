@@ -105,9 +105,7 @@ class Day12 < Day00
     segments = 1
 
     until edges.empty?
-      next_edge_location = edges.index { |e| e[:s] == point }
-
-      if next_edge_location.nil?
+      unless (next_edge_location = edges.index { |e| e[:s] == point })
         next_edge_location = 0
         prev_edge = nil
         segments += 1
