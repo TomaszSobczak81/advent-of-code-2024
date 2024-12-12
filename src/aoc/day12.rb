@@ -43,7 +43,7 @@ class Day12 < Day00
     return if y < 0 || y >= @garden.length || x < 0 || x >= @garden[0].length || @garden[y][x] != plant || !@plants.include?(plant)
     origin = "#{y}-#{x}" if origin.nil?
     pointer = "#{plant}-#{origin}"
-    @regions["#{plant}-#{origin}"] = Set.new if @regions[pointer].nil?
+    @regions[pointer] = Set.new if @regions[pointer].nil?
     @regions[pointer].add([y, x])
     @garden[y][x] = nil
 
