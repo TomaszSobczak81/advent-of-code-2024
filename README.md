@@ -24,6 +24,7 @@ To make it simply to use for everyone without needs to install any dependencies 
 * Run `make run_day_11` to solve Day 11 solutions [Plutonian Pebbles](https://adventofcode.com/2024/day/11)
 * Run `make run_day_12` to solve Day 12 solutions [Garden Groups](https://adventofcode.com/2024/day/12)
 * Run `make run_day_13` to solve Day 13 solutions [Claw Contraption](https://adventofcode.com/2024/day/13)
+* Run `make run_day_14` to solve Day 14 solutions [Restroom Redoubt](https://adventofcode.com/2024/day/14)
 
 ## TODO
 
