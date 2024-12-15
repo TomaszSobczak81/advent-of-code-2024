@@ -22,6 +22,7 @@ To make it simply to use for everyone without needs to install any dependencies 
 * Run `make run_day_09` to solve Day 9 solutions [Disk Fragmenter](https://adventofcode.com/2024/day/9)
 * Run `make run_day_10` to solve Day 10 solutions [Hoof It](https://adventofcode.com/2024/day/10)
 * Run `make run_day_11` to solve Day 11 solutions [Plutonian Pebbles](https://adventofcode.com/2024/day/11)
+* Run `make run_day_13` to solve Day 13 solutions [Claw Contraption](https://adventofcode.com/2024/day/13)
 
 ## TODO
 
@@ -42,3 +43,5 @@ Solution for part one: 6378826667552 took 68040.98141299983 ms.
 Test passed for part two. Got 2858 as expected.
 Solution for part two: 6413328569890 took 9574.002748999192 ms.
 ```
+
+* [ ] Day 13 needs to be solved and optimized
