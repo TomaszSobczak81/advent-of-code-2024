@@ -47,5 +47,7 @@ Test passed for part two. Got 2858 as expected.
 Solution for part two: 6413328569890 took 9574.002748999192 ms.
 ```
 
-* [ ] Day 12 part 2 needs to be fixed as results is wrong
+* [ ] Day 12 part 2 needs to be fixed as live results is wrong
 * [ ] Day 13 part 2 needs to be solved and optimized
+* [ ] Day 15 part 2 needs to be fixed as live results is wrong
+```
