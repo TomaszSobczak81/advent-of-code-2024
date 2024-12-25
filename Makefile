@@ -63,3 +63,9 @@ run_day_14: # Run a solver for Day 14 solutions
 
 run_day_15: # Run a solver for Day 15 solutions
 	${docker_compose} exec ${docker_container} ruby ./src/aoc.rb day15
+
+run_day_16: # Run a solver for Day 16 solutions
+	${docker_compose} exec --env=RUBY_THREAD_VM_STACK_SIZE=5000000 ${docker_container} ruby ./src/aoc.rb day16
+
+run_day_17: # Run a solver for Day 17 solutions
+	${docker_compose} exec ${docker_container} ruby ./src/aoc.rb day17
