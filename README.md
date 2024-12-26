@@ -28,6 +28,7 @@ To make it simply to use for everyone without needs to install any dependencies 
 * Run `make run_day_15` to solve Day 15 solutions [Warehouse Woes](https://adventofcode.com/2024/day/15)
 * Run `make run_day_16` to solve Day 16 solutions [Reindeer Maze](https://adventofcode.com/2024/day/16)
 * Run `make run_day_17` to solve Day 17 solutions [Chronospatial Computer](https://adventofcode.com/2024/day/17)
+* Run `make run_day_18` to solve Day 18 solutions [RAM Run](https://adventofcode.com/2024/day/18)
 
 ## TODO
 
@@ -54,4 +55,12 @@ Solution for part two: 6413328569890 took 9574.002748999192 ms.
 * [ ] Day 15 part 2 needs to be fixed as live results is wrong
 * [ ] Day 16 part 1 needs to be solved and optimized
 * [ ] Day 17 part 2 needs to be solved and optimized
+
+* [ ] Day 18 part 2 needs to be optimized
+```
+docker compose exec console ruby ./src/aoc.rb day18
+Test passed for part one. Got 22 as expected.
+Solution for part one: 248 took 10.304374000043026 ms.
+Test passed for part two. Got 6,1 as expected.
+Solution for part two: 32,55 took 20221.42628599977 ms.
 ```

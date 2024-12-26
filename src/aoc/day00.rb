@@ -94,15 +94,17 @@ class Day00
 
   # @param part_identifier [String]
   # @param version_identifier [String]
+  # @param separator [String]
   # @return [Array<Array<Integer>>]
-  protected def input_data_as_lines_of_integers(part_identifier, version_identifier)
-    self.input_data_as_lines(part_identifier, version_identifier).map { |a| a.split('').map { |x| x.to_i } }
+  protected def input_data_as_lines_of_integers(part_identifier, version_identifier, separator = '')
+    self.input_data_as_lines(part_identifier, version_identifier).map { |a| a.split(separator).map { |x| x.to_i } }
   end
 
   # @param part_identifier [String]
   # @param version_identifier [String]
+  # @param separator [String]
   # @return [Array<Array<String>>]
-  protected def input_data_as_grid(part_identifier, version_identifier)
-    self.input_data_as_lines(part_identifier, version_identifier).map { |a| a.split('') }
+  protected def input_data_as_grid(part_identifier, version_identifier, separator = '')
+    self.input_data_as_lines(part_identifier, version_identifier).map { |a| a.split(separator) }
   end
 end

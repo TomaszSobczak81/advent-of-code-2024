@@ -11,11 +11,13 @@ class Day17 < Day00
   protected def compute_part_two_solution(version_identifier)
     program, registers = self.load_input(@@part_two_identifier, version_identifier)
     program_as_string = program.join(',')
-    counter = 0
+    counter = program.reverse.join.gsub(/(0*)(\d+)/, '\2\1').to_i(8)
+    counter = counter - counter % 8
 
-    while counter += 1
+    while counter
       computer = ChronospatialComputer.new(program, registers.merge({ :a => counter }))
       break if computer.run == program_as_string
+      counter += 1
     end
 
     counter.to_s
@@ -62,34 +64,11 @@ class ChronospatialComputer
       operand = @program[@pointer + 1]
 
       self.step(opcode, operand)
-
-      next if opcode == 3 && @registers[:a] != 0
-
-      @pointer += 2
+      @pointer += 2 unless opcode == 3 && @registers[:a] != 0
     end
 
     @output.join(',')
   end
-
-  # def run_with_output_check
-  #   while @pointer < @program.length
-  #     opcode = @program[@pointer]
-  #     operand = @program[@pointer + 1]
-  #
-  #     self.step(opcode, operand)
-  #
-  #     if opcode == 5
-  #       puts "Output: #{@output}, Program: #{@program}, Output[-1]: #{@output[-1]}, Program[@output.length - 1]: #{@program[@output.length - 1]}"
-  #     end
-  #
-  #     next if opcode == 3 && @registers[:a] != 0
-  #     break if opcode == 5 && @output[-1] != @program[@output.length - 1]
-  #
-  #     @pointer += 2
-  #   end
-  #
-  #   @output.join(',')
-  # end
 
   private def step(opcode, operand)
     case opcode
